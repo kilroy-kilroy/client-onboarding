@@ -4,12 +4,30 @@ import type { OnboardingFormData } from '@/types/onboarding'
 
 export async function POST(request: NextRequest) {
   try {
-    const data: OnboardingFormData = await request.json()
+    const data: OnboardingFormData & { company: { email?: string; password?: string } } = await request.json()
 
-    // 1. Insert Company
+    // 1. Create User Account
+    const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
+      email: data.company.email!,
+      password: data.company.password!,
+      email_confirm: true, // Auto-confirm email
+    })
+
+    if (authError || !authData.user) {
+      console.error('User creation error:', authError)
+      return NextResponse.json(
+        { error: 'Failed to create user account', message: authError?.message },
+        { status: 500 }
+      )
+    }
+
+    const userId = authData.user.id
+
+    // 2. Insert Company
     const { data: company, error: companyError } = await supabaseAdmin
       .from('companies')
       .insert({
+        user_id: userId,
         company_name: data.company.company_name,
         url: data.company.url,
         industry_niche: data.company.industry_niche,
@@ -31,7 +49,7 @@ export async function POST(request: NextRequest) {
 
     const companyId = company.id
 
-    // 2. Insert Leadership Contacts
+    // 3. Insert Leadership Contacts
     if (data.leadership?.contacts && data.leadership.contacts.length > 0) {
       const leadershipData = data.leadership.contacts.map(contact => ({
         company_id: companyId,
@@ -53,7 +71,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 3. Insert Team Members
+    // 4. Insert Team Members
     if (data.team?.members && data.team.members.length > 0) {
       const teamData = data.team.members.map(member => ({
         company_id: companyId,
@@ -73,7 +91,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 4. Insert Services
+    // 5. Insert Services
     if (data.services?.services && data.services.services.length > 0) {
       const servicesData = data.services.services.map(service => ({
         company_id: companyId,
@@ -93,7 +111,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 5. Insert Clients
+    // 6. Insert Clients
     if (data.clients?.clients && data.clients.clients.length > 0) {
       const clientsData = data.clients.clients.map(client => ({
         company_id: companyId,
@@ -116,7 +134,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 6. Insert Financial Data (current month)
+    // 7. Insert Financial Data (current month)
     if (data.financials && Object.keys(data.financials).length > 0) {
       const currentMonth = new Date().toISOString().slice(0, 7) + '-01' // First day of current month
 
@@ -137,7 +155,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 7. Insert Sales Process
+    // 8. Insert Sales Process
     if (data.sales && Object.keys(data.sales).length > 0) {
       const { error: salesError } = await supabaseAdmin
         .from('lead_gen_sales_process')
@@ -159,7 +177,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 8. Insert Ops & Capacity
+    // 9. Insert Ops & Capacity
     if (data.ops && Object.keys(data.ops).length > 0) {
       const { error: opsError } = await supabaseAdmin
         .from('ops_capacity')
@@ -178,7 +196,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 9. Insert Competitors
+    // 10. Insert Competitors
     if (data.competitors?.competitors && data.competitors.competitors.length > 0) {
       const competitorsData = data.competitors.competitors.map(competitor => ({
         company_id: companyId,

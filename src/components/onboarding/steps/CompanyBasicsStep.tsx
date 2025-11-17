@@ -16,10 +16,26 @@ export default function CompanyBasicsStep({ initialData, onNext, onBack }: Compa
       company_name: '',
     }
   )
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onNext(formData)
+    if (password !== confirmPassword) {
+      alert('Passwords do not match')
+      return
+    }
+    if (password.length < 8) {
+      alert('Password must be at least 8 characters')
+      return
+    }
+    // Pass auth data along with company data
+    onNext({
+      ...formData,
+      email,
+      password,
+    } as any)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -35,6 +51,63 @@ export default function CompanyBasicsStep({ initialData, onNext, onBack }: Compa
       <h2 className="text-2xl font-bold mb-6">Company Basics</h2>
 
       <div className="space-y-4">
+        {/* Account Creation */}
+        <div className="bg-brand-yellow bg-opacity-10 p-4 border-l-4 border-brand-yellow mb-6">
+          <h3 className="font-anton text-lg uppercase mb-2">Create Your Account</h3>
+          <p className="text-sm text-gray-700 mb-4">This will be used to log in and access your dashboard.</p>
+
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                Email Address *
+              </label>
+              <input
+                type="email"
+                id="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your@email.com"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                  Password *
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Min. 8 characters"
+                  minLength={8}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                  Confirm Password *
+                </label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Confirm password"
+                  minLength={8}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div>
           <label htmlFor="company_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Company Name *
@@ -157,7 +230,7 @@ export default function CompanyBasicsStep({ initialData, onNext, onBack }: Compa
       <FormNavigation
         onBack={onBack}
         showBack={false}
-        nextDisabled={!formData.company_name}
+        nextDisabled={!formData.company_name || !email || !password || !confirmPassword || password.length < 8}
       />
     </form>
   )
