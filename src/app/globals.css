@@ -3,31 +3,32 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* Tim Kilroy Brand Colors */
+  --brand-red: #E51B23;
+  --brand-black: #000000;
+  --brand-yellow: #FFDE59;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  body {
+    @apply bg-white text-black;
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-anton;
+  }
+
+  p, span, div, input, textarea, select, button {
+    @apply font-poppins;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .brand-gradient {
+    background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-black) 100%);
   }
 }

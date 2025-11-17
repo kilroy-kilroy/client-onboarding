@@ -1,5 +1,6 @@
 import { supabaseAdmin } from '@/lib/supabase/server'
 import AIAnalysis from '@/components/dashboard/AIAnalysis'
+import Image from 'next/image'
 
 interface DashboardPageProps {
   params: {
@@ -19,117 +20,133 @@ export default async function DashboardPage({ params }: DashboardPageProps) {
 
   if (error || !company) {
     return (
-      <div className="min-h-screen p-8">
-        <h1 className="text-3xl font-bold mb-4">Agency Not Found</h1>
-        <p className="text-gray-600">Unable to load company data.</p>
+      <div className="min-h-screen bg-black text-white p-8">
+        <h1 className="text-4xl font-anton uppercase text-brand-red mb-4">Agency Not Found</h1>
+        <p className="text-gray-300">Unable to load company data. Fix your shit and try again.</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8">
+    <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
+        {/* Logo */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">{company.company_name}</h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <Image
+            src="/logos/red-logo.svg"
+            alt="Tim Kilroy"
+            width={200}
+            height={66}
+          />
+        </div>
+
+        {/* Header */}
+        <div className="mb-8 border-l-4 border-brand-red pl-6">
+          <h1 className="text-5xl font-anton uppercase mb-2 text-brand-yellow">{company.company_name}</h1>
+          <p className="text-xl text-gray-300">
             {company.industry_niche || 'Agency Intelligence Dashboard'}
           </p>
         </div>
 
-        {/* WTF Health Score */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-              Overall Health Score
-            </h3>
-            <p className="text-3xl font-bold text-primary-600">
-              {company.overall_wtf_health_score?.toFixed(1) || 'N/A'}
-            </p>
-            <p className="text-xs text-gray-500 mt-1">out of 10</p>
-          </div>
+        {/* WTF Health Scores */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-anton uppercase mb-6 text-brand-red">Your WTF Health Score</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="bg-brand-red border-4 border-brand-yellow p-6">
+              <h3 className="text-sm font-poppins font-medium text-brand-yellow mb-2 uppercase tracking-wide">
+                Overall Health
+              </h3>
+              <p className="text-5xl font-anton text-white">
+                {company.overall_wtf_health_score?.toFixed(1) || 'N/A'}
+              </p>
+              <p className="text-xs text-gray-200 mt-1">out of 10</p>
+            </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-              Client Fit Score
-            </h3>
-            <p className="text-3xl font-bold text-green-600">
-              {company.ideal_client_fit_score?.toFixed(1) || 'N/A'}
-            </p>
-            <p className="text-xs text-gray-500 mt-1">out of 10</p>
-          </div>
+            <div className="bg-gray-900 border-4 border-brand-red p-6">
+              <h3 className="text-sm font-poppins font-medium text-brand-yellow mb-2 uppercase tracking-wide">
+                Client Fit
+              </h3>
+              <p className="text-5xl font-anton text-brand-yellow">
+                {company.ideal_client_fit_score?.toFixed(1) || 'N/A'}
+              </p>
+              <p className="text-xs text-gray-400 mt-1">out of 10</p>
+            </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-              Sales Health Score
-            </h3>
-            <p className="text-3xl font-bold text-blue-600">
-              {company.sales_health_score?.toFixed(1) || 'N/A'}
-            </p>
-            <p className="text-xs text-gray-500 mt-1">out of 10</p>
-          </div>
+            <div className="bg-gray-900 border-4 border-brand-red p-6">
+              <h3 className="text-sm font-poppins font-medium text-brand-yellow mb-2 uppercase tracking-wide">
+                Sales Health
+              </h3>
+              <p className="text-5xl font-anton text-brand-yellow">
+                {company.sales_health_score?.toFixed(1) || 'N/A'}
+              </p>
+              <p className="text-xs text-gray-400 mt-1">out of 10</p>
+            </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-              Ops Health Score
-            </h3>
-            <p className="text-3xl font-bold text-purple-600">
-              {company.ops_health_score?.toFixed(1) || 'N/A'}
-            </p>
-            <p className="text-xs text-gray-500 mt-1">out of 10</p>
+            <div className="bg-gray-900 border-4 border-brand-red p-6">
+              <h3 className="text-sm font-poppins font-medium text-brand-yellow mb-2 uppercase tracking-wide">
+                Ops Health
+              </h3>
+              <p className="text-5xl font-anton text-brand-yellow">
+                {company.ops_health_score?.toFixed(1) || 'N/A'}
+              </p>
+              <p className="text-xs text-gray-400 mt-1">out of 10</p>
+            </div>
           </div>
         </div>
 
         {/* Company Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold mb-4">Company Details</h3>
-            <dl className="space-y-2">
-              <div>
-                <dt className="text-sm text-gray-500">Location</dt>
-                <dd className="font-medium">{company.hq_location || 'Not specified'}</dd>
-              </div>
-              <div>
-                <dt className="text-sm text-gray-500">Founded</dt>
-                <dd className="font-medium">{company.founded || 'Not specified'}</dd>
-              </div>
-              <div>
-                <dt className="text-sm text-gray-500">Team Size</dt>
-                <dd className="font-medium">{company.team_size || 'Not specified'}</dd>
-              </div>
-              <div>
-                <dt className="text-sm text-gray-500">Revenue Range</dt>
-                <dd className="font-medium">{company.revenue_range || 'Not specified'}</dd>
-              </div>
-            </dl>
-          </div>
+        <div className="mb-12">
+          <h2 className="text-3xl font-anton uppercase mb-6 text-brand-red">The Fundamentals</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-gray-900 border-2 border-gray-700 p-6">
+              <h3 className="text-xl font-anton uppercase mb-4 text-brand-yellow">Company Details</h3>
+              <dl className="space-y-3">
+                <div>
+                  <dt className="text-sm text-gray-400 uppercase">Location</dt>
+                  <dd className="font-poppins font-medium text-white">{company.hq_location || 'Not specified'}</dd>
+                </div>
+                <div>
+                  <dt className="text-sm text-gray-400 uppercase">Founded</dt>
+                  <dd className="font-poppins font-medium text-white">{company.founded || 'Not specified'}</dd>
+                </div>
+                <div>
+                  <dt className="text-sm text-gray-400 uppercase">Team Size</dt>
+                  <dd className="font-poppins font-medium text-white">{company.team_size || 'Not specified'}</dd>
+                </div>
+                <div>
+                  <dt className="text-sm text-gray-400 uppercase">Revenue Range</dt>
+                  <dd className="font-poppins font-medium text-white">{company.revenue_range || 'Not specified'}</dd>
+                </div>
+              </dl>
+            </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold mb-4">Portfolio Overview</h3>
-            <dl className="space-y-2">
-              <div>
-                <dt className="text-sm text-gray-500">Total Clients</dt>
-                <dd className="font-medium text-2xl">{company.total_clients || 0}</dd>
-              </div>
-              <div>
-                <dt className="text-sm text-gray-500">Services Offered</dt>
-                <dd className="font-medium text-2xl">{company.total_services || 0}</dd>
-              </div>
-            </dl>
-          </div>
+            <div className="bg-gray-900 border-2 border-gray-700 p-6">
+              <h3 className="text-xl font-anton uppercase mb-4 text-brand-yellow">Portfolio</h3>
+              <dl className="space-y-3">
+                <div>
+                  <dt className="text-sm text-gray-400 uppercase">Total Clients</dt>
+                  <dd className="font-anton text-4xl text-brand-red">{company.total_clients || 0}</dd>
+                </div>
+                <div>
+                  <dt className="text-sm text-gray-400 uppercase">Services Offered</dt>
+                  <dd className="font-anton text-4xl text-brand-red">{company.total_services || 0}</dd>
+                </div>
+              </dl>
+            </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold mb-4">Team Overview</h3>
-            <dl className="space-y-2">
-              <div>
-                <dt className="text-sm text-gray-500">Leadership</dt>
-                <dd className="font-medium text-2xl">{company.total_leadership || 0}</dd>
-              </div>
-              <div>
-                <dt className="text-sm text-gray-500">Team Members</dt>
-                <dd className="font-medium text-2xl">{company.total_team_members || 0}</dd>
-              </div>
-            </dl>
+            <div className="bg-gray-900 border-2 border-gray-700 p-6">
+              <h3 className="text-xl font-anton uppercase mb-4 text-brand-yellow">Team</h3>
+              <dl className="space-y-3">
+                <div>
+                  <dt className="text-sm text-gray-400 uppercase">Leadership</dt>
+                  <dd className="font-anton text-4xl text-brand-red">{company.total_leadership || 0}</dd>
+                </div>
+                <div>
+                  <dt className="text-sm text-gray-400 uppercase">Team Members</dt>
+                  <dd className="font-anton text-4xl text-brand-red">{company.total_team_members || 0}</dd>
+                </div>
+              </dl>
+            </div>
           </div>
         </div>
 
@@ -139,22 +156,25 @@ export default async function DashboardPage({ params }: DashboardPageProps) {
         </div>
 
         {/* Next Actions */}
-        <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-6">
-          <h3 className="text-lg font-semibold mb-4">Next Steps</h3>
-          <ul className="space-y-2">
+        <div className="bg-brand-red border-4 border-brand-yellow p-8">
+          <h3 className="text-3xl font-anton uppercase mb-6 text-brand-yellow">What's Next</h3>
+          <ul className="space-y-4">
             <li className="flex items-start">
-              <span className="text-primary-600 mr-2">→</span>
-              <span>Complete remaining onboarding sections for full intelligence profile</span>
+              <span className="text-brand-yellow mr-3 text-2xl font-bold">→</span>
+              <span className="text-white text-lg">Review your AI-generated insights above. They're not fluff.</span>
             </li>
             <li className="flex items-start">
-              <span className="text-primary-600 mr-2">→</span>
-              <span>Use AI-generated insights to refine your strategy (see above)</span>
+              <span className="text-brand-yellow mr-3 text-2xl font-bold">→</span>
+              <span className="text-white text-lg">Use your 90-Day Plan. Actually follow it.</span>
             </li>
             <li className="flex items-start">
-              <span className="text-primary-600 mr-2">→</span>
-              <span>Feed data into Roadmap, GEN+, FYFS, DemandOS programs</span>
+              <span className="text-brand-yellow mr-3 text-2xl font-bold">→</span>
+              <span className="text-white text-lg">Feed this data into your Operating Systems: Roadmap, GEN+, FYFS, DemandOS, GTM OS.</span>
             </li>
           </ul>
+          <p className="text-center text-2xl font-anton uppercase mt-8 text-white">
+            More Revenue. More Profit. More Happy.
+          </p>
         </div>
       </div>
     </div>

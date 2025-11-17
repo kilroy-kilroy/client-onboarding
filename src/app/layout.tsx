@@ -1,12 +1,26 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Anton, Poppins } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+// Tim Kilroy Brand Typography
+const anton = Anton({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-anton'
+})
+
+const poppins = Poppins({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-poppins'
+})
 
 export const metadata: Metadata = {
   title: 'WTF Agency Intelligence System',
-  description: 'Unified agency onboarding and intelligence platform',
+  description: 'Turn WTF into Wow, that\'s fantastic. More Revenue. More Profit. More Happy.',
+  icons: {
+    icon: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
@@ -16,7 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${poppins.variable} ${anton.variable} font-poppins`}>{children}</body>
     </html>
   )
 }

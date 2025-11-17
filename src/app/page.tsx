@@ -1,57 +1,104 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-center text-center">
-        <h1 className="text-6xl font-bold mb-6">
-          WTF Agency Intelligence System
-        </h1>
-        <p className="text-xl mb-8 text-gray-600 dark:text-gray-400">
-          The unified platform that powers your entire agency consulting ecosystem
-        </p>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-black text-white">
+      <div className="z-10 max-w-6xl w-full px-6 py-12">
+        {/* Logo */}
+        <div className="text-center mb-12">
+          <Image
+            src="/logos/red-logo.svg"
+            alt="Tim Kilroy"
+            width={300}
+            height={100}
+            className="mx-auto"
+            priority
+          />
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+        {/* Hero Section */}
+        <div className="text-center mb-16">
+          <h1 className="text-7xl md:text-8xl font-anton uppercase tracking-tight mb-6 text-brand-red">
+            WTF
+          </h1>
+          <h2 className="text-4xl md:text-5xl font-anton uppercase mb-6">
+            Agency Intelligence System
+          </h2>
+          <p className="text-2xl mb-4 text-brand-yellow font-bold">
+            Turn WTF into Wow, that's fantastic.
+          </p>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            Stop scattered onboarding. Start building real agency intelligence.
+          </p>
+        </div>
+
+        {/* CTA Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl mx-auto">
           <Link
             href="/onboarding"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+            className="group bg-brand-red hover:bg-red-700 text-white px-8 py-6 transition-all hover:scale-105 border-4 border-brand-red hover:border-brand-yellow"
           >
-            <h2 className="mb-3 text-2xl font-semibold">
-              Start Onboarding{' '}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+            <h3 className="text-3xl font-anton uppercase mb-3">
+              Start Here
+              <span className="inline-block transition-transform group-hover:translate-x-2 ml-2">
                 →
               </span>
-            </h2>
-            <p className="m-0 max-w-[30ch] text-sm opacity-50">
-              Begin the guided intake process to create your agency intelligence profile
+            </h3>
+            <p className="text-lg font-poppins">
+              Build your agency intelligence profile. No BS, just the fundamentals.
             </p>
           </Link>
 
           <Link
             href="/dashboard"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+            className="group bg-white text-black hover:bg-brand-yellow px-8 py-6 transition-all hover:scale-105 border-4 border-white hover:border-brand-yellow"
           >
-            <h2 className="mb-3 text-2xl font-semibold">
-              View Dashboard{' '}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+            <h3 className="text-3xl font-anton uppercase mb-3">
+              View Dashboard
+              <span className="inline-block transition-transform group-hover:translate-x-2 ml-2">
                 →
               </span>
-            </h2>
-            <p className="m-0 max-w-[30ch] text-sm opacity-50">
-              Access your Agency Snapshot and intelligence overview
+            </h3>
+            <p className="text-lg font-poppins">
+              Access your Agency Snapshot and AI-powered insights.
             </p>
           </Link>
         </div>
 
-        <div className="mt-16 text-left max-w-3xl mx-auto">
-          <h3 className="text-2xl font-bold mb-4">What This System Does:</h3>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-            <li>Replaces scattered onboarding with structured intake</li>
-            <li>Creates a relational database of your entire agency operation</li>
-            <li>Feeds all downstream programs: Roadmap, DemandOS, GEN+, FYFS, GTM OS</li>
-            <li>Generates automated analysis and intelligence</li>
-            <li>Produces your Agency Snapshot and Go Forward Plan</li>
-          </ul>
+        {/* What This Does */}
+        <div className="mt-20 max-w-4xl mx-auto">
+          <div className="bg-brand-red p-8 border-4 border-brand-yellow">
+            <h3 className="text-3xl font-anton uppercase mb-6 text-brand-yellow">
+              Fix Your Fundamentals First
+            </h3>
+            <ul className="space-y-4 text-lg">
+              <li className="flex items-start">
+                <span className="text-brand-yellow mr-3 text-2xl">→</span>
+                <span>Stop being an order-taker. Build strategic positioning.</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-brand-yellow mr-3 text-2xl">→</span>
+                <span>Create a real database of your entire operation.</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-brand-yellow mr-3 text-2xl">→</span>
+                <span>Feed all downstream programs: Roadmap, DemandOS, GEN+, FYFS, GTM OS.</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-brand-yellow mr-3 text-2xl">→</span>
+                <span>Get AI-powered analysis that actually matters.</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-brand-yellow mr-3 text-2xl">→</span>
+                <span>Generate your 90-Day Go Forward Plan.</span>
+              </li>
+            </ul>
+          </div>
+
+          <p className="text-center text-2xl font-anton uppercase mt-12 text-brand-yellow">
+            More Revenue. More Profit. More Happy.
+          </p>
         </div>
       </div>
     </main>

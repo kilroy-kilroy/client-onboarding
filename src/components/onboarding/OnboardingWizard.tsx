@@ -90,21 +90,29 @@ export default function OnboardingWizard() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Agency Onboarding</h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          {ONBOARDING_STEPS[currentStep].description}
-        </p>
-      </div>
+    <div className="min-h-screen bg-black text-white">
+      <div className="max-w-4xl mx-auto py-8 px-4">
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <h1 className="text-5xl md:text-6xl font-anton uppercase mb-4 text-brand-red">
+            WTF Intelligence Intake
+          </h1>
+          <p className="text-xl text-brand-yellow font-bold mb-2">
+            Fix Your Fundamentals First
+          </p>
+          <p className="text-gray-300">
+            {ONBOARDING_STEPS[currentStep].description}
+          </p>
+        </div>
 
-      <ProgressBar
-        steps={ONBOARDING_STEPS}
-        currentStep={currentStep}
-      />
+        <ProgressBar
+          steps={ONBOARDING_STEPS}
+          currentStep={currentStep}
+        />
 
-      <div className="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-        {renderStep()}
+        <div className="mt-8 bg-white text-black rounded-lg p-8 border-4 border-brand-red">
+          {renderStep()}
+        </div>
       </div>
     </div>
   )
