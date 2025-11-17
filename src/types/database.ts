@@ -22,10 +22,6 @@ export interface Database {
           founded: number | null
           team_size: number | null
           revenue_range: 'Under $500k' | '$500k-$1M' | '$1M-$2M' | '$2M-$5M' | '$5M-$10M' | '$10M+' | null
-          ideal_client_fit_score: number | null
-          sales_health_score: number | null
-          ops_health_score: number | null
-          overall_wtf_health_score: number | null
           notes: string | null
           created_at: string
           updated_at: string
@@ -39,10 +35,6 @@ export interface Database {
           founded?: number | null
           team_size?: number | null
           revenue_range?: 'Under $500k' | '$500k-$1M' | '$1M-$2M' | '$2M-$5M' | '$5M-$10M' | '$10M+' | null
-          ideal_client_fit_score?: number | null
-          sales_health_score?: number | null
-          ops_health_score?: number | null
-          overall_wtf_health_score?: number | null
           notes?: string | null
           created_at?: string
           updated_at?: string
@@ -56,10 +48,6 @@ export interface Database {
           founded?: number | null
           team_size?: number | null
           revenue_range?: 'Under $500k' | '$500k-$1M' | '$1M-$2M' | '$2M-$5M' | '$5M-$10M' | '$10M+' | null
-          ideal_client_fit_score?: number | null
-          sales_health_score?: number | null
-          ops_health_score?: number | null
-          overall_wtf_health_score?: number | null
           notes?: string | null
           created_at?: string
           updated_at?: string

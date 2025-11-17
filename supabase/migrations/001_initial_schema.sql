@@ -24,10 +24,6 @@ CREATE TABLE companies (
         '$5M-$10M',
         '$10M+'
     )),
-    ideal_client_fit_score DECIMAL(3,2), -- Calculated field
-    sales_health_score DECIMAL(3,2), -- Calculated field
-    ops_health_score DECIMAL(3,2), -- Calculated field
-    overall_wtf_health_score DECIMAL(3,2), -- Calculated field
     notes TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -362,8 +358,7 @@ LEFT JOIN leadership_contacts lc ON c.id = lc.company_id
 LEFT JOIN team_members tm ON c.id = tm.company_id
 LEFT JOIN services s ON c.id = s.company_id
 GROUP BY c.id, c.company_name, c.url, c.industry_niche, c.hq_location, c.founded,
-         c.team_size, c.revenue_range, c.ideal_client_fit_score, c.sales_health_score,
-         c.ops_health_score, c.overall_wtf_health_score, c.notes, c.created_at, c.updated_at,
+         c.team_size, c.revenue_range, c.notes, c.created_at, c.updated_at,
          chs.ideal_client_fit_score, chs.sales_health_score, chs.ops_health_score;
 
 COMMENT ON TABLE companies IS 'Core table representing agency clients';
