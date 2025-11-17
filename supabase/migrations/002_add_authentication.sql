@@ -20,7 +20,7 @@ ALTER TABLE team_members ENABLE ROW LEVEL SECURITY;
 ALTER TABLE services ENABLE ROW LEVEL SECURITY;
 ALTER TABLE clients ENABLE ROW LEVEL SECURITY;
 ALTER TABLE financials ENABLE ROW LEVEL SECURITY;
-ALTER TABLE sales_process ENABLE ROW LEVEL SECURITY;
+ALTER TABLE lead_gen_sales_process ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ops_capacity ENABLE ROW LEVEL SECURITY;
 ALTER TABLE competitors ENABLE ROW LEVEL SECURITY;
 
@@ -158,21 +158,21 @@ WITH CHECK (
 
 -- Sales Process
 CREATE POLICY "Users can view their company's sales process"
-ON sales_process FOR SELECT
+ON lead_gen_sales_process FOR SELECT
 USING (
     EXISTS (
         SELECT 1 FROM companies
-        WHERE companies.id = sales_process.company_id
+        WHERE companies.id = lead_gen_sales_process.company_id
         AND companies.user_id = auth.uid()
     )
 );
 
 CREATE POLICY "Users can insert their company's sales process"
-ON sales_process FOR INSERT
+ON lead_gen_sales_process FOR INSERT
 WITH CHECK (
     EXISTS (
         SELECT 1 FROM companies
-        WHERE companies.id = sales_process.company_id
+        WHERE companies.id = lead_gen_sales_process.company_id
         AND companies.user_id = auth.uid()
     )
 );
