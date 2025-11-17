@@ -1,4 +1,5 @@
 import { supabaseAdmin } from '@/lib/supabase/server'
+import AIAnalysis from '@/components/dashboard/AIAnalysis'
 
 interface DashboardPageProps {
   params: {
@@ -132,6 +133,11 @@ export default async function DashboardPage({ params }: DashboardPageProps) {
           </div>
         </div>
 
+        {/* AI Intelligence Section */}
+        <div className="mb-8">
+          <AIAnalysis companyId={companyId} />
+        </div>
+
         {/* Next Actions */}
         <div className="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-6">
           <h3 className="text-lg font-semibold mb-4">Next Steps</h3>
@@ -142,7 +148,7 @@ export default async function DashboardPage({ params }: DashboardPageProps) {
             </li>
             <li className="flex items-start">
               <span className="text-primary-600 mr-2">→</span>
-              <span>Generate AI-powered Agency Snapshot and Go Forward Plan</span>
+              <span>Use AI-generated insights to refine your strategy (see above)</span>
             </li>
             <li className="flex items-start">
               <span className="text-primary-600 mr-2">→</span>
