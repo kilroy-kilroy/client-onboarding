@@ -16,9 +16,9 @@ export default function CompanyBasicsStep({ initialData, onNext, onBack }: Compa
       company_name: '',
     }
   )
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [email, setEmail] = useState((initialData as any)?.email || '')
+  const [password, setPassword] = useState((initialData as any)?.password || '')
+  const [confirmPassword, setConfirmPassword] = useState((initialData as any)?.password || '')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()

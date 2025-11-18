@@ -14,9 +14,110 @@ import OpsCapacityStep from './steps/OpsCapacityStep'
 import CompetitorsStep from './steps/CompetitorsStep'
 import ReviewStep from './steps/ReviewStep'
 
+// Demo data for quick testing
+const DEMO_DATA: Partial<OnboardingFormData> = {
+  company: {
+    email: 'demo@agency.com',
+    password: 'password123',
+    company_name: 'Velocity Marketing Agency',
+    url: 'https://velocitymarketing.com',
+    industry_niche: 'B2B SaaS Marketing',
+    hq_location: 'Austin, TX',
+    founded: 2018,
+    team_size: 12,
+    revenue_range: '$1M-$2M',
+  } as any,
+  leadership: {
+    contacts: [
+      {
+        full_name: 'Sarah Johnson',
+        role: 'CEO',
+        email: 'sarah@velocitymarketing.com',
+        linkedin_url: 'https://linkedin.com/in/sarahjohnson',
+        is_decision_maker: true,
+        personality_notes: 'Strategic thinker, data-driven, focused on scaling'
+      }
+    ]
+  },
+  team: {
+    members: [
+      {
+        name: 'Mike Chen',
+        role: 'Creative Director',
+        linkedin_url: 'https://linkedin.com/in/mikechen',
+        strengths_notes: 'Exceptional design skills, brand strategy',
+        capacity_contribution_score: 8
+      }
+    ]
+  },
+  services: {
+    services: [
+      {
+        service_name: 'Content Marketing',
+        description: 'Strategic content creation and distribution for B2B SaaS',
+        price_range: '$5,000-$15,000/month',
+        delivery_model: 'Retainer',
+        delivery_constraints: 'Requires 2-week onboarding period'
+      }
+    ]
+  },
+  clients: {
+    clients: [
+      {
+        client_name: 'TechFlow Inc',
+        industry: 'SaaS',
+        monthly_value: 12000,
+        profitability_rating: 8,
+        fit_rating: 9,
+        duration_months: 18,
+        churn_risk: 'Low',
+        notes: 'Great long-term partner, expanding scope'
+      }
+    ]
+  },
+  financials: {
+    revenue: 1500000,
+    cost_of_delivery: 750000,
+    operating_costs: 400000,
+    target_revenue_goal: 2000000,
+    target_profit_goal: 500000
+  },
+  sales: {
+    main_lead_sources: 'Referrals, LinkedIn, Content Marketing',
+    monthly_lead_volume: 25,
+    request_to_meeting_rate: 60,
+    meeting_to_proposal_rate: 50,
+    proposal_to_close_rate: 40,
+    sales_process_description: 'Consultative selling with 3-step process',
+    outbound_tools: 'LinkedIn Sales Navigator, HubSpot',
+    sales_positioning_summary: 'Premium B2B SaaS marketing partner',
+    visibility_score: 7
+  },
+  ops: {
+    hours_available_per_week: 400,
+    hours_sold_per_week: 320,
+    biggest_bottlenecks: 'Content production capacity, client onboarding time',
+    delivery_model: 'Hybrid - mix of retainer and project work',
+    sop_quality_rating: 7,
+    team_capacity_risk: 'Medium - need to hire 2 more team members'
+  },
+  competitors: {
+    competitors: [
+      {
+        competitor_name: 'GrowthLab Agency',
+        url: 'https://growthlabagency.com',
+        positioning_summary: 'Full-service growth marketing for tech companies',
+        strengths: 'Large team, established brand, comprehensive services',
+        weaknesses: 'Less specialized, higher prices, slower turnaround',
+        differentiation_opportunities: 'Our B2B SaaS specialization and faster execution'
+      }
+    ]
+  }
+}
+
 export default function OnboardingWizard() {
   const [currentStep, setCurrentStep] = useState(0)
-  const [formData, setFormData] = useState<Partial<OnboardingFormData>>({})
+  const [formData, setFormData] = useState<Partial<OnboardingFormData>>(DEMO_DATA)
 
   const handleNext = (stepData: any) => {
     const stepId = ONBOARDING_STEPS[currentStep].id
