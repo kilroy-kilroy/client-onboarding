@@ -29,7 +29,7 @@ This is the **operating system behind the WTF Agency Method**.
 
 ## Database Schema
 
-### 10 Core Tables
+### 11 Core Tables
 
 1. **Companies** - Core agency information
 2. **Leadership Contacts** - Decision makers and stakeholders
@@ -41,6 +41,7 @@ This is the **operating system behind the WTF Agency Method**.
 8. **Lead Gen & Sales Process** - Pipeline metrics and conversion rates
 9. **Ops & Capacity** - Utilization, bottlenecks, SOPs
 10. **Competitors** - Competitive landscape
+11. **Social and Content** - Links to company linkedin page, founder's & key staff linkedin pages, link to any blogs, newsletters, you tube, podcasts, instagram, facebook, tiktok, etc used to promote the company
 
 ### Views
 
