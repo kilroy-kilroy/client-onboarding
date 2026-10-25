@@ -1,11 +1,12 @@
 import DashboardClient from './DashboardClient'
 
 interface DashboardPageProps {
-  params: {
+  params: Promise<{
     companyId: string
-  }
+  }>
 }
 
-export default function DashboardPage({ params }: DashboardPageProps) {
-  return <DashboardClient companyId={params.companyId} />
+export default async function DashboardPage({ params }: DashboardPageProps) {
+  const { companyId } = await params
+  return <DashboardClient companyId={companyId} />
 }
